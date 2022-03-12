@@ -35,6 +35,11 @@ class App extends Component {
     this.setState({ habits: habits });
   };
 
+  handleAdd = (name) => {
+    const habits = [...this.state.habits, { id: Date.now(), name: name, count: 0 }];
+    this.setState({habits: habits});
+  }
+
   render() {
     return (
       <>
@@ -42,6 +47,7 @@ class App extends Component {
           totalCount={this.state.habits.filter((item) => item.count > 0).length}
         />
         <Habits
+          onAdd={this.handleAdd}
           habits={this.state.habits}
           key={this.state.habits.id}
           onIncrement={this.handleIncrement}
