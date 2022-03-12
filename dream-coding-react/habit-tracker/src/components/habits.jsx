@@ -22,12 +22,15 @@ class Habits extends Component {
     const index = habits.indexOf(habit);
     const habitsCount = habits[index].count - 1;
     habits[index].count = habitsCount < 1 ? 0 : habitsCount;
-    console.log(habits[index].count);
     this.setState({habits: habits});
   };
 
   handleDelete = (habit) => {
-    console.log(3);
+    // const habits = [...this.state.habits];
+    // const index = habits.indexOf(habit);
+    // habits.splice(index, 1);
+    const habits = this.state.habits.filter( item => item.id !== habit.id);
+    this.setState({habits: habits});
   };
 
   render() {
