@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./app.css";
 import Habits from "./components/habits";
 import Navbar from "./components/navbar";
+import HabitAddForm from "./components/habitAddForm";
 
 class App extends Component {
   state = {
@@ -33,15 +34,16 @@ class App extends Component {
     this.setState({habits});
   }
 
+  submitHandler = (name) => {
+    const habits = [...this.state.habits, { id: Date.now(), name: name, count: 0}];
+    this.setState({habits});
+  }
+  
   render() {
     return (
       <>
-        <Navbar />
-        <form>
-          <input type="text" placeholder="Habit" />
-          <button type="submit">Add</button>
-        </form>
-
+        <Navbar habit={this.state.habits} totalCount={this.state.habits.filter( item => item.count > 0).length}/>
+        <HabitAddForm onAdd={this.submitHandler} />
         <Habits
           habit={this.state.habits}
           name={this.state.habits.name}

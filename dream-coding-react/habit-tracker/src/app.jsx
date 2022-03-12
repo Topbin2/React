@@ -40,6 +40,12 @@ class App extends Component {
     this.setState({habits: habits});
   }
 
+  handleReset = ()=> {
+    const habits = [...this.state.habits];
+    habits.splice(0, habits.length);
+    this.setState({habits});
+  }
+
   render() {
     return (
       <>
@@ -47,6 +53,7 @@ class App extends Component {
           totalCount={this.state.habits.filter((item) => item.count > 0).length}
         />
         <Habits
+          onReset={this.handleReset}
           onAdd={this.handleAdd}
           habits={this.state.habits}
           key={this.state.habits.id}
