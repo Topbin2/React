@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "./app.css";
 import Habits from "./components/habits";
+import Navbar from "./components/navbar";
 
 class App extends Component {
   state = {
@@ -12,26 +13,45 @@ class App extends Component {
     ],
   };
 
+  IncrementHandler = (habit) => {
+    const habits = [...this.state.habits];
+    const index = habits.indexOf(habit);
+    habits[index].count++;
+    this.setState({habits});
+  }
+
+  DecrementHandler = (habit) => {
+    const habits = [...this.state.habits];
+    const index = habits.indexOf(habit);
+    const count = habits[index].count - 1;
+    habits[index].count = count < 0 ? 0 : count;
+    this.setState({habits});
+  }
+
+  DeleteHandler = (habit) => {
+    const habits = this.state.habits.filter( item => item.id !== habit.id);
+    this.setState({habits});
+  }
+
   render() {
     return (
       <>
-        <nav className="nav">
-          <div className="leaf-icon">
-            <i className="fa-solid fa-leaf"></i>
-          </div>
-          <h1 className="title">Habit Tracker</h1>
-          <p className="main-count">
-            {this.state.habits.length}
-          </p>
-        </nav>
-
+        <Navbar />
         <form>
-          <input type="text"  placeholder="Habit" />
+          <input type="text" placeholder="Habit" />
           <button type="submit">Add</button>
         </form>
 
-        <Habits />
-        <button className='resetBtn'>Reset All</button>
+        <Habits
+          habit={this.state.habits}
+          name={this.state.habits.name}
+          count={this.state.habits.count}
+          key={this.state.habits.id}
+          onIncrement={this.IncrementHandler}
+          onDecrement={this.DecrementHandler}
+          onDelete={this.DeleteHandler}
+        />
+        <button className="resetBtn">Reset All</button>
       </>
     );
   }
