@@ -19,8 +19,8 @@ class Habits extends Component {
     this.setState({count: habit.count < 1 ? 0 : habit.count -= 1})
   }
 
-  DeletHandler = () => {
-
+  DeleteHandler = (habit) => {
+    this.setState(this.state.habits.splice(habit, 1));
   }
 
   render() {
