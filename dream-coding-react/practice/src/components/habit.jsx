@@ -1,31 +1,24 @@
 import React, { useState } from 'react';
-import './habit.css';
 
-  
-const Habit = (props) => {
-    const [state, setState] = useState(props);
-    const [num, setNum] = useState(props.count);
 
-    const increaseHandler = ()=> {
-        setNum(num + 1);
-    };
+const Habit = () => {
+    const [habits, setHabits] = useState(
+        { id: 1, name: 'Reading', count: 0 }
+      );
 
-    const DecreaseHandler = ()=> {
-        setNum(num - 1);
-    };
+    const handleIncrement = () => {
+        setHabits(habits.count + 1);
+    }
 
-    const DeleteHandler = ()=> {
-        setState();
-        console.log(state);
-    };
-
+    console.log(habits);
+    
     return (
-        <div className="container">
-            <div>{props.name}</div>
-            <div>{num}</div>
-            <button onClick={increaseHandler}>+</button>
-            <button onClick={DecreaseHandler}>-</button>
-            <button onClick={DeleteHandler}>x</button>
+        <div className='container'>
+         <span className='habit-name'>{habits.name}</span>
+         <span className='habit-count'>{habits.count}</span>   
+         <button onClick={handleIncrement}>+</button>
+         <button>-</button>
+         <button>x</button>
         </div>
     );
 };
