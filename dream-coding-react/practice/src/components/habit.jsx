@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React from "react";
 
-
-const Habit = () => {
-    const [habits, setHabits] = useState(
-        { id: 1, name: 'Reading', count: 0 }
-      );
-
+const Habit = (props) => {
     const handleIncrement = () => {
-        setHabits(habits.count + 1);
-    }
+        props.onIncrement(props.habits);
+      };
+      const handleDecrement = () => {
+        props.onDecrement(props.habits);
+      };
+      const handleDelete = () => {
+        props.onDelete(props.habits);
+      };
 
-    console.log(habits);
-    
-    return (
-        <div className='container'>
-         <span className='habit-name'>{habits.name}</span>
-         <span className='habit-count'>{habits.count}</span>   
-         <button onClick={handleIncrement}>+</button>
-         <button>-</button>
-         <button>x</button>
-        </div>
-    );
+
+  return (
+    <div className="container">
+      <span className="habit-name">{props.habits.name}</span>
+      <span className="habit-count">{props.habits.count}</span>
+      <button onClick={handleIncrement}>+</button>
+      <button onClick={handleDecrement}>-</button>
+      <button onClick={handleDelete}>x</button>
+    </div>
+  );
 };
 
 export default Habit;

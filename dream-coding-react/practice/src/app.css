@@ -13,3 +13,31 @@
     height: 40px;
     font-size: 30px;
 }
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 700px;
+    background-color: aqua;
+}
+
+header span {
+    font-size: 50px;
+}
+form {
+    padding: 30px;
+}
+
+form input {
+    width: 500px;
+    height: 50px;
+    font-size: 30px;
+}
+
+form button {
+    width: 100px;
+    height: 50px;
+    margin-left: 30px;
+    cursor: pointer;
+}
