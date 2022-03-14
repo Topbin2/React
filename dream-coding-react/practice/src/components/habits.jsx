@@ -6,7 +6,7 @@ const Habits = (props) => {
   return (
     <>
       {props.habits.map((item) => (
-        <Habit key={item.id} name={item.name} count={item.count}/>
+        <Habit key={item.id} name={item.name} count={item.count} />
       ))}
     </>
   );

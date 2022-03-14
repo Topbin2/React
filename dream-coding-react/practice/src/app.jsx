@@ -8,13 +8,14 @@ const data = [
   { id: 3, name: "Coding", count: 0 },
 ];
 
-const App = () => {
- const [habits, setHabits] = useState(data);
 
+const App = () => {
+  const [habits, setHabits] = useState(data);
+  
   return (
     <>
       <Header />
-      <Habits habits={habits}/>
+      <Habits habits={habits} />
     </>
   );
 };

@@ -3,20 +3,29 @@ import './habit.css';
 
   
 const Habit = (props) => {
+    const [state, setState] = useState(props);
     const [num, setNum] = useState(props.count);
 
-    const clickHandler = ()=> {
+    const increaseHandler = ()=> {
         setNum(num + 1);
-        console.log(num);
+    };
+
+    const DecreaseHandler = ()=> {
+        setNum(num - 1);
+    };
+
+    const DeleteHandler = ()=> {
+        setState();
+        console.log(state);
     };
 
     return (
         <div className="container">
             <div>{props.name}</div>
             <div>{num}</div>
-            <button onClick={clickHandler}>+</button>
-            <button>-</button>
-            <button>x</button>
+            <button onClick={increaseHandler}>+</button>
+            <button onClick={DecreaseHandler}>-</button>
+            <button onClick={DeleteHandler}>x</button>
         </div>
     );
 };
