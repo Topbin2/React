@@ -6,7 +6,7 @@ const TodoItem = ({todo}) => {
     return <div className="TodoItem">
         <div className={`content ${checked ? 'checked' : ''}`}>
             {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-            <div>{text}</div>
+            <div className="text">{text}</div>
         </div>
     </div>;
 };
