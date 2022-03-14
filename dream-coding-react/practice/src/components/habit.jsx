@@ -1,23 +1,24 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
+import './habit.css';
 
-class Habit extends Component {
   
-  render() {
-    const {name, count} = this.props.habit;
+const Habit = (props) => {
+    const [num, setNum] = useState(props.count);
+
+    const clickHandler = ()=> {
+        setNum(num + 1);
+        console.log(num);
+    };
+
     return (
-      <div className="container">
-        <span className="title">{name}</span>
-        <span className="count">{count}</span>
-        <button className="increase" onClick={ () => this.props.onIncrement(this.props.habit) }>
-          +
-        </button>
-        <button className="decrease" onClick={ () => this.props.onDecrement(this.props.habit)}>
-          -
-        </button>
-        <button className="remove" onClick={ () => this.props.onDelete(this.props.habit)}>x</button>
-      </div>
+        <div className="container">
+            <div>{props.name}</div>
+            <div>{num}</div>
+            <button onClick={clickHandler}>+</button>
+            <button>-</button>
+            <button>x</button>
+        </div>
     );
-  }
-}
+};
 
 export default Habit;

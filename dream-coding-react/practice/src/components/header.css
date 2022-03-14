@@ -1,0 +1,11 @@
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: coral;
+    width: 700px;
+}
+
+header span {
+    font-size: 50px;
+}
