@@ -6,12 +6,16 @@ import VideoSearch from "./components/VideoSearch/VideoSearch";
 function App() {
   const [videos, setVideos] = useState([]);
 
-  useEffect(()=> {
+  const onSearch = (value)=> {
+    console.log(value);
+  };
+
+  useEffect(() => {
     const requestOptions = {
       method: "GET",
       redirect: "follow",
     };
-  
+
     fetch(
       "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyDhEeHaM-lrpgIYTkseTk-eiB9kp9X4-qg",
       requestOptions
@@ -22,10 +26,11 @@ function App() {
   }, []);
 
   return (
-  <>
-  <VideoSearch />
-  <VideoList key={videos.id} videos={videos} />
-  </>);
+    <>
+      <VideoSearch onSearch={onSearch} />
+      <VideoList key={videos.id} videos={videos} />
+    </>
+  );
 }
 
 export default App;
