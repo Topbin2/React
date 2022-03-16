@@ -7,10 +7,7 @@ function App() {
   const [videos, setVideos] = useState([]);
 
   const onSearch = (value)=> {
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
+    
     
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${value}&type=video&key=AIzaSyDhEeHaM-lrpgIYTkseTk-eiB9kp9X4-qg`, requestOptions)
       .then(response => response.json())
@@ -21,18 +18,7 @@ function App() {
   
 
   useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyDhEeHaM-lrpgIYTkseTk-eiB9kp9X4-qg",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => setVideos(result.items))
-      .catch((error) => console.log("error", error));
+    
   }, []);
 
   return (

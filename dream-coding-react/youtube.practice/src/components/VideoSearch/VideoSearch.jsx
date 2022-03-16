@@ -1,16 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./VideoSearch.module.css";
 
 const VideoSearch = (props) => {
-    const inputRef = useRef();
-    const handleSubmit = (e)=> {
-        const value = inputRef.current.value;
-        props.onSearch(value);
+    const [input, setInput] = useState('');
+
+    const handleSubmit = ()=> {
+        props.onSearch(input);
+    };
+
+    const onChange = (e) => {
+        setInput(e.target.value);
     };
 
     const onKeyPress = (e)=> {
         if(e.key === 'Enter') {
             handleSubmit();
+            setInput('');
         }
     };
 
@@ -23,7 +28,7 @@ const VideoSearch = (props) => {
       <div className={styles.logo}>
         <img className={styles.logoImg} src="/images/logo.png" alt="logo" />
       </div>
-      <input ref={inputRef} className={styles.input} type="text" onKeyPress={onKeyPress} />
+      <input value={input} className={styles.input} type="text" onChange={onChange} onKeyPress={onKeyPress} />
       <button className={styles.button} type="submit" onClick={onClick} >
         <img className={styles.buttonImg} src="/images/search.png" alt="logo" />
       </button>

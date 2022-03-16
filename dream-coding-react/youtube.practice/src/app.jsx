@@ -7,8 +7,17 @@ function App() {
   const [videos, setVideos] = useState([]);
 
   const onSearch = (value)=> {
-    console.log(value);
-  };
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${value}&type=video&key=AIzaSyDhEeHaM-lrpgIYTkseTk-eiB9kp9X4-qg`, requestOptions)
+      .then(response => response.json())
+      .then(result => result.items.map( item => ({...item, id: item.id.vedioId})))
+      .then(items => setVideos(items))
+      .catch(error => console.log('error', error));
+    };
 
   useEffect(() => {
     const requestOptions = {
