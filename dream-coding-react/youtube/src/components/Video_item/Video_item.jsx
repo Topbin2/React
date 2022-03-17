@@ -3,7 +3,7 @@ import styles from "./Video_item.module.css";
 
 const VideoItem = (props) => {
   return (
-    <li className={styles.container}>
+    <li className={styles.container} onClick={() => props.onVideoClick(props.video)}>
       <div className={styles.video}>
         <img
           className={styles.thumbnail}
