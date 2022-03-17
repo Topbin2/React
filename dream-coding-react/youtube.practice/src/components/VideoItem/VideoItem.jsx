@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./VideoItem.module.css";
 
-const VideoItem = ({ video: { snippet } }) => {
+const VideoItem = ({ video, video: { snippet }, onSelect }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={()=> onSelect(video)}>
       <img
         className={styles.thumbnail}
         src={snippet.thumbnails.medium.url}
