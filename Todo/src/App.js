@@ -1,45 +1,46 @@
-import React, { useState } from "react";
-import "./App.css";
-import Template from "./components/Template";
-import TodoList from "./components/TodoList";
-import { MdAddCircle } from "react-icons/md";
-import TodoInsert from "./components/TodoInsert";
+import React, { useEffect, useState } from "react";
 
-let nextId = 4;
 const App = () => {
-  const [insertToggle, setInsertToggle] = useState(false);
-  const [todos, setTodos] = useState([
-    { id: 1, text: "할일 1", checked: true },
-    { id: 2, text: "할일 2", checked: false },
-    { id: 3, text: "할일 3", checked: true },
-  ]);
+  const [todo, setTodo] = useState(["js공부"]);
+  const [input, setInput] = useState("");
 
-  const onInsertToggle = ()=> {
-    setInsertToggle( prev => {
-      return !prev;
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTodo([...todo, input]);
+    setInput('');
   }
 
-  const onInsertTodo = (text)=> {
-    if(text === '') {
-      return alert('할일을 입력해주세요.');
-    } else {
-      const todo = {
-        id: nextId,
-        text,
-        checked: false
-      };
-      setTodos(todos => todos.concat(todo));
-      nextId++;
-    }
+  const handleChange = (e) => {
+    setInput(e.target.value);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setInput(e.target.value);
+    }
+  }
+
+  const handleClick = () => {
+    
+  };
+
+  useEffect( ()=> {
+    console.log('render');
+  },[todo]);
+
   return (
-    <Template todoLength={todos.length}>
-      <TodoList todos={todos} />
-      <div className="add-todo-button" onClick={onInsertToggle}><MdAddCircle /></div>
-      {insertToggle && <TodoInsert onInsertToggle={onInsertToggle} onInsertTodo={onInsertTodo} />}
-    </Template>
+    <div>
+      <h1>Todo application</h1>
+      <form onSubmit={handleSubmit}>
+        <input value={input} type="text" onChange={handleChange} onKeyPress={handleKeyPress}/>
+        <button type="submit" onClick={handleClick}>
+          click
+        </button>
+      </form>
+      <ul>
+        {todo.map( todo => <li>{todo}</li>)}
+      </ul>
+    </div>
   );
 };
 
