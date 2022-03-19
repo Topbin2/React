@@ -1,11 +1,21 @@
 import React from "react";
 import styles from "./VideoDetail.module.css";
 
-const VideoDetail = (props) => {
+const VideoDetail = ({ video }) => {
   return (
-    <div>
-      <h1>{props.video.snippet.channelTitle}</h1>
-    </div>
+    <>
+      <iframe
+        id="ytplayer"
+        type="text/html"
+        width="100%"
+        height="500px"
+        src={`https://www.youtube.com/embed/${video.id}`}
+        frameBorder="0"
+        allowFullScreen
+      ></iframe>
+      <h1>{video.snippet.channelTitle}</h1>
+      <p>{video.snippet.description}</p>
+    </>
   );
 };
 
