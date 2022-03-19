@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./app.module.css";
 import VideoList from "./components/Video_list/Video_list";
 import Search_header from "./components/Search_header/Search_header";
@@ -12,17 +12,23 @@ function App({ youtube }) {
     setSelectedVideo(video);
   };
 
-  const onSearch = (query) => {
-    youtube
-      .search(query) //
-      .then((video) => setVideos(video));
-  };
+  const onSearch = useCallback(
+    (query) => {
+      youtube
+        .search(query) //
+        .then((video) => {
+          setVideos(video);
+          setSelectedVideo(null);
+        });
+    },
+    [youtube]
+  );
 
   useEffect(() => {
     youtube
       .mostPopular() //
       .then((video) => setVideos(video));
-  }, []);
+  }, [youtube]);
 
   return (
     <div className={styles.app}>
