@@ -14,11 +14,16 @@ function App({ youtube }) {
   };
 
   const onSearch = (value) => {
-    youtube.search(value).then((videos) => setVideos(videos));
+    youtube.search(value)
+      .then((videos) => {
+        setVideos(videos);
+        setSelectedVideo(null);
+      });
   };
 
   useEffect(() => {
-    youtube.mostPopular().then((videos) => setVideos(videos));
+    youtube.mostPopular()
+      .then((videos) => setVideos(videos));
   }, []);
 
   return (
