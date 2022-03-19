@@ -42,6 +42,6 @@ class Youtube {
   //     const result_1 = await response.json();
   //     return result_1.items.map((item) => ({ ...item, id: item.id.videoId }));
   // }
-}
+}}
 
 export default Youtube;
