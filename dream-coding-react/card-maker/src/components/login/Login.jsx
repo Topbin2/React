@@ -1,14 +1,23 @@
 import React from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import styles from './login.module.css';
+import styles from "./login.module.css";
+import { useNavigate } from "react-router";
 
 const Login = ({ authService }) => {
-    const onLogin = (event)=> {
-        authService
-        .login(event.currentTarget.textContent)
-        .then(console.log);
-    };
+  const navigate = useNavigate();
+  const goToMaker = userId => {
+    navigate({
+      pathname: "/maker",
+      state: { id: userId },
+    });
+  };
+
+  const onLogin = (event) => {
+    authService //
+      .login(event.currentTarget.textContent)
+      .then(data => goToMaker(data.user.uid));
+  };
 
   return (
     <section className={styles.login}>
@@ -17,10 +26,14 @@ const Login = ({ authService }) => {
         <h1>Login</h1>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <button className={styles.button} onClick={onLogin}>Google</button>
+            <button className={styles.button} onClick={onLogin}>
+              Google
+            </button>
           </li>
           <li className={styles.item}>
-            <button className={styles.button} onClick={onLogin}>Github</button>
+            <button className={styles.button} onClick={onLogin}>
+              Github
+            </button>
           </li>
         </ul>
       </section>
