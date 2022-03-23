@@ -12,23 +12,23 @@ const Maker = ({ authService }) => {
         id: '1',
         name: 'Ellie',
         company: 'Samsung',
-        theme: 'light',
+        theme: 'dark',
         title: 'Engineer',
         email: 'eliie@gmail.com',
         message: 'go for it',
         fileName: 'ellie',
-        fileURL: 'ellie.png'
+        fileURL: null,
       },
       {
         id: '2',
         name: 'Snagbin',
         company: 'Samsung',
-        theme: 'light',
+        theme: 'colorful',
         title: 'Engineer',
         email: 'eliie@gmail.com',
         message: 'go for it',
         fileName: 'ellie',
-        fileURL: 'ellie.png'
+        fileURL: null,
       },
       {
         id: '3',
@@ -39,7 +39,7 @@ const Maker = ({ authService }) => {
         email: 'eliie@gmail.com',
         message: 'go for it',
         fileName: 'ellie',
-        fileURL: 'ellie.png'
+        fileURL: null,
       },
     ]);
     const navigate = useNavigate();
