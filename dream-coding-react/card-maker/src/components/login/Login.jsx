@@ -8,7 +8,6 @@ const Login = ({ authService }) => {
   let navigate = useNavigate();
   const goToMaker = userId => {
     navigate('/maker', { state: {id: userId }});
-    console.log(userId);
   };
 
 
