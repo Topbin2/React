@@ -3,12 +3,19 @@ import AddForm from "../addForm/addForm";
 import Form from "../form/form";
 import styles from "./editor.module.css";
 
-const Editor = ({ cards, addCard }) => {
+const Editor = ({ cards, addCard, updateCard, deleteCard }) => {
   return (
     <section className={styles.editor}>
       <h1 className={styles.title}>Card Maker</h1>
-      {cards.map((card) => (<Form key={card.id} card={card} />))}
-      <AddForm onAdd={addCard}/>
+      {Object.keys(cards).map((key) => (
+        <Form
+          key={key}
+          card={cards[key]}
+          updateCard={updateCard}
+          deleteCard={deleteCard}
+        />
+      ))}
+      <AddForm onAdd={addCard} />
     </section>
   );
 };
