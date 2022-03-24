@@ -3,7 +3,7 @@ import Button from "../button/button";
 import styles from "./form.module.css";
 
 const Form = ({ FileInput, card, updateCard, deleteCard }) => {
-  const { id, name, company, theme, title, email, message, fileName, fileURL } =
+  const { name, company, theme, title, email, message, fileName } =
     card;
 
   const onFileChange = file => {
