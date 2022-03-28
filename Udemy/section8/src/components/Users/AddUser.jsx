@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrapper";
 import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
@@ -43,7 +44,7 @@ const AddUser = (props) => {
   }
 
   return (
-    <div>
+    <Wrapper>
       {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler} />}
       <Card className={styles.input}>
         <form onSubmit={addUserHandler}>
@@ -64,7 +65,7 @@ const AddUser = (props) => {
           <Button type="submit" children="Add Users"></Button>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 };
 
