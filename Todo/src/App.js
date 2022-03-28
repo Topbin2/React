@@ -1,47 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useReducer } from "react";
+import "./App.css";
 
-const App = () => {
-  const [todo, setTodo] = useState(["js공부"]);
-  const [input, setInput] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setTodo([...todo, input]);
-    setInput('');
+const countReducer = (state, action) => {
+  if(action.type === "UP") {
+    return state + action.number;
+  } else if(action.type === "DOWN") {
+    return state - action.number;
+  } else if(action.type === "RESET") {
+    return 0;
   }
+}
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
+function App() {
+  const [number, setNumber] = useState(0);
+  const [count, countDispatch] = useReducer(countReducer, 0);
+
+  const up = () => {
+    countDispatch({ type: "UP", number: number });
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      setInput(e.target.value);
-    }
-  }
-
-  const handleClick = () => {
-    
+  const down = () => {
+    countDispatch({ type: "DOWN", number: number });
   };
 
-  useEffect( ()=> {
-    console.log('render');
-  },[todo]);
+  const reset = () => {
+    countDispatch({ type: "RESET", number: number });
+  };
+
+  const changeNumber = (e) => {
+    setNumber(Number(e.target.value));
+  };
 
   return (
     <div>
-      <h1>Todo application</h1>
-      <form onSubmit={handleSubmit}>
-        <input value={input} type="text" onChange={handleChange} onKeyPress={handleKeyPress}/>
-        <button type="submit" onClick={handleClick}>
-          click
-        </button>
-      </form>
-      <ul>
-        {todo.map( todo => <li>{todo}</li>)}
-      </ul>
+      <input type="button" value="-" onClick={down} />
+      <input type="button" value="0" onClick={reset} />
+      <input type="button" value="+" onClick={up} />
+      <input type="number" value={number} onChange={changeNumber} />
+      <div>{count}</div>
     </div>
   );
-};
+}
 
 export default App;
