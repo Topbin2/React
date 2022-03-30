@@ -3,12 +3,14 @@ import styles from './Header.module.css';
 import mealsImage from '../../aseets/meals.jpg';
 import HeaderCartButton from './HeaderCartButton';
 
-const Header = (porops) => {
+const Header = ({ onShowCart }) => {
+    
+
     return (
         <Fragment>
             <header className={styles.header}>
                 <h1>ReactMeals</h1>
-                <HeaderCartButton />
+                <HeaderCartButton onClick={onShowCart} />
             </header>
             <div className={styles.mainImage}>
                 <img src={mealsImage} alt="A table full of delicious food!" />
