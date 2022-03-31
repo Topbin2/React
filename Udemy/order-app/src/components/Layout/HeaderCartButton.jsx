@@ -6,12 +6,14 @@ import styles from './HeaderCartButton.module.css';
 const HeaderCartButton = ({ onClick }) => {
     const cartCtx = useContext(CartContext);
 
+    const btnClasses = `${styles.button} ${styles.bump}`;
+
     const numberOfCartItems = cartCtx.items.reduce( (curNumber, item) => {
         return curNumber + item.amount;
     }, 0);
 
     return (
-        <button className={styles.button} onClick={onClick}>
+        <button className={btnClasses} onClick={onClick}>
             <span className={styles.icon}>
                 <CartIcon />
             </span>
