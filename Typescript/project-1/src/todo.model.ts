@@ -12,3 +12,9 @@ export interface TodoListProps {
 export interface NewTodoProps {
 	onAddTodo: (todoText: string) => void;
 }
+
+export interface ContextType {
+	items: Todo[];
+	addTodo: (text: string) => void;
+	removeTodo: (id: string) => void;
+}
