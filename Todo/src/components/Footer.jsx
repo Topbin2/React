@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { UserContext } from "../context/UserContext";
 
-const Footer = ({ isDark, setIsDark }) => {
+const Footer = () => {
+  const { isDark, setIsDark } = useContext(ThemeContext);
+  const { addCount } = useContext(UserContext);
+
   const toggleTheme = () => {
     setIsDark(!isDark);
   };
@@ -14,6 +19,9 @@ const Footer = ({ isDark, setIsDark }) => {
     >
       <button className="button" onClick={toggleTheme}>
         Dark Mode
+      </button>
+      <button className="button" onClick={addCount}>
+        Add Count
       </button>
     </footer>
   );

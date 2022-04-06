@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Page from "./components/Page";
 import "./App.css";
+import ThemeContextProvider from "./context/ThemeContext";
+import UserContextProvider from "./context/UserContext";
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  
-  return <Page isDark={isDark} setIsDark={setIsDark} />;
+  return (
+    <UserContextProvider>
+      <ThemeContextProvider>
+        <Page />
+      </ThemeContextProvider>
+    </UserContextProvider>
+  );
 }
 
 export default App;
