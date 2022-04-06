@@ -1,14 +1,17 @@
 import React from 'react';
+import './TodoList.css';
+import { TodoListProps } from '../todo.model';
 
-interface TodoListProps {
-	items: { id: string; text: string }[];
-}
-
-const TodoList: React.FC<TodoListProps> = ({ items }) => {
+const TodoList: React.FC<TodoListProps> = ({ items, onDeleteTodo }) => {
 	return (
 		<ul>
 			{items.map(todo => (
-				<li key={todo.id}>{todo.text}</li>
+				<li key={todo.id}>
+					{todo.text}
+					<button id={todo.id} onClick={() => onDeleteTodo(todo.id)}>
+						DELETE
+					</button>
+				</li>
 			))}
 		</ul>
 	);
