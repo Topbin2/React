@@ -1,13 +1,13 @@
-import useInputs from "../hooks/user-input";
+import userInputs from "../hooks/user-input";
 
-const BasicForm = (props) => {
+const BasicForm = () => {
   const {
     value: enteredFirstName,
     hasError: firstNameHasError,
     valueChangeHandler: firstNameChangeHandler,
     blurHandler: firstNameBlurHandler,
     reset: firstNameReset,
-  } = useInputs((value) => value.trim() !== "");
+  } = userInputs((value) => value.trim() !== "");
 
   const {
     value: enteredLastName,
@@ -15,7 +15,7 @@ const BasicForm = (props) => {
     valueChangeHandler: lastNameChangeHandler,
     blurHandler: lastNameBlurHandler,
     reset: lastNameReset,
-  } = useInputs((value) => value.trim() !== "");
+  } = userInputs((value) => value.trim() !== "");
 
   const {
     value: enteredEmail,
@@ -23,7 +23,7 @@ const BasicForm = (props) => {
     valueChangeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
     reset: emailReset,
-  } = useInputs((value) => value.includes("@"));
+  } = userInputs((value) => value.includes("@"));
 
   let formIsValid = false;
   if (enteredFirstName && enteredLastName && enteredEmail) {
@@ -86,9 +86,7 @@ const BasicForm = (props) => {
           onBlur={emailBlurHandler}
           value={enteredEmail}
         />
-        {emailHasError && (
-          <p className="error-text">check your email!</p>
-        )}
+        {emailHasError && <p className="error-text">check your email!</p>}
       </div>
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
