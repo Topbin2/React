@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import useInput from "../hooks/use-input";
 
 const SimpleInput = (props) => {
@@ -10,7 +8,7 @@ const SimpleInput = (props) => {
     valueChangeHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
     reset: resetNameInput,
-  } = useInput(value => value.trim() !== '');
+  } = useInput((value) => value.trim() !== "");
 
   const {
     value: enteredEmail,
@@ -19,7 +17,7 @@ const SimpleInput = (props) => {
     valueChangeHandler: emailChangedHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmailInput,
-  } = useInput(value => value.includes('@'));
+  } = useInput((value) => value.includes("@"));
 
   let formIsValid = false;
 
