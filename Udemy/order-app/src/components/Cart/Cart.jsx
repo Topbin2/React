@@ -39,6 +39,21 @@ const Cart = ({ onClose }) => {
     </ul>
   );
 
+  const modalActions = (
+    <div className={styles.actions}>
+      {!isCheckout && (
+        <button className={styles["button--alt"]} onClick={onClose}>
+          Close
+        </button>
+      )}
+      {hasItems && !isCheckout && (
+        <button className={styles.button} onClick={orderHandler}>
+          Order
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <Modal onClose={onClose}>
       {cartItems}
@@ -46,19 +61,8 @@ const Cart = ({ onClose }) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout />}
-      <div className={styles.actions}>
-        {!isCheckout && (
-          <button className={styles["button--alt"]} onClick={onClose}>
-            Close
-          </button>
-        )}
-        {hasItems && !isCheckout && (
-          <button className={styles.button} onClick={orderHandler}>
-            Order
-          </button>
-        )}
-      </div>
+      {isCheckout && <Checkout onCancel={onClose} />}
+      {!isCheckout && modalActions}
     </Modal>
   );
 };
