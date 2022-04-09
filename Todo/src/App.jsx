@@ -1,16 +1,10 @@
-import React from "react";
-import Page from "./components/Page";
-import "./App.css";
-import ThemeContextProvider from "./context/ThemeContext";
-import UserContextProvider from "./context/UserContext";
+import SimpleInput from './components/SimpleInput';
 
 function App() {
   return (
-    <UserContextProvider>
-      <ThemeContextProvider>
-        <Page />
-      </ThemeContextProvider>
-    </UserContextProvider>
+    <div className="app">
+      <SimpleInput />
+    </div>
   );
 }
 
