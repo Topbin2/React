@@ -1,33 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: ${(props) => props.theme.bgColor};
+`;
+
+const H1 = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
+
+interface DummyProps {
+  text: string;
+  otherThingHere?: boolean;
+}
+
+function Dummy({ text, otherThingHere }: DummyProps) {
+  return <h1>{text}</h1>;
+}
 
 function App() {
-  const [value, setValue] = useState("");
-
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const enteredValue = event.currentTarget.value;
-    // const {
-    //   currentTarget: { value },
-    // } = event;
-    setValue(enteredValue);
-  };
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(value);
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("clicl!");
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input
-          value={value}
-          onChange={onChange}
-          type="text"
-          placeholder="username"
-        />
-        <button>Log in</button>
-      </form>
-    </div>
+    <Container>
+      <Dummy text="sangbin" />
+        <button onClick={onClick}>btn</button>
+    </Container>
   );
 }
 
