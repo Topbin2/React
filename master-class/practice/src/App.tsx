@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import CoinDetail from "./pages/CoinDetail";
+import Detail from "./pages/Detail";
 
-import Coins from "./pages/Coins";
+import Main from "./pages/Main";
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -75,8 +75,12 @@ function App() {
       <GlobalStyle />
       
       <Switch>
-        <Route path="/" component={Coins} exact />
-        <Route path="/:coinId" component={CoinDetail} exact />
+        <Route path="/" exact >
+          <Main />
+        </Route >
+        <Route path="/:coinId" >
+          <Detail />
+        </Route >
       </Switch>
     </React.Fragment>
   );
