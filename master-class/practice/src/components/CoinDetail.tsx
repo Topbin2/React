@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import {
   Switch,
   useLocation,
@@ -66,7 +66,8 @@ const ChartContainer = styled.div`
 `;
 
 const Tap = styled.p<{ isActive: boolean }>`
-  color: ${(props) => props.isActive ? props.theme.accentColor : props.theme.textColor};
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
 `;
 
 interface locationState {
@@ -104,33 +105,36 @@ interface ICoinId {
 
 const CoinDetail = () => {
   const { coinId } = useParams<ICoinId>();
-  const [coinInfo, setCoinInfo] = useState<IInfo>();
-  const [coinPrice, setCoinPrice] = useState<IPrice>();
-  const [loading, setLoading] = useState(true);
   const { state } = useLocation<locationState>();
   const chartMatch = useRouteMatch(`/${coinId}/chart`);
   const priceMatch = useRouteMatch(`/${coinId}/price`);
 
-  useEffect(() => {
-    const fetchCoin = async () => {
-      const coinInfoResponse = await fetch(
-        `https://api.coinpaprika.com/v1/coins/${coinId}`
-      );
-      const coinInfoResult = await coinInfoResponse.json();
+  const fetchCoinInfo = async () => {
+    const response = await fetch(
+      `https://api.coinpaprika.com/v1/coins/${coinId}`
+    );
+    const result = await response.json();
+    return result;
+  };
 
-      const coinPriceResponse = await fetch(
-        `https://api.coinpaprika.com/v1/tickers/${coinId}`
-      );
-      const coinPriceResult = await coinPriceResponse.json();
-      setCoinInfo(coinInfoResult);
-      setCoinPrice(coinPriceResult);
-      setLoading(false);
-    };
-    fetchCoin();
-  }, [coinId]);
+  const fetchCoinPrice = async () => {
+    const response = await fetch(
+      `https://api.coinpaprika.com/v1/tickers/${coinId}`
+    );
+    const result = await response.json();
+    return result;
+  };
 
-  if (loading === true) {
-    return <p>Loading...</p>;
+  const { data: coinInfoData, isLoading: coinInfoIsLoading } = useQuery<IInfo>(
+    ["coinInfo", coinId],
+    fetchCoinInfo
+  );
+
+  const { data: coinPriceData, isLoading: coinPriceIsLoading } =
+    useQuery<IPrice>(["coinPrice", coinId], fetchCoinPrice);
+
+  if (coinInfoIsLoading || coinPriceIsLoading) {
+    return <h1>Loading...</h1>;
   }
 
   return (
@@ -139,26 +143,26 @@ const CoinDetail = () => {
       <Card>
         <div>
           <p>RANK:</p>
-          <p>{coinInfo?.rank}</p>
+          <p>{coinInfoData?.rank}</p>
         </div>
         <div>
           <p>SYMBOL:</p>
-          <p>{coinInfo?.symbol}</p>
+          <p>{coinInfoData?.symbol}</p>
         </div>
         <div>
           <p>OPEN SOURCE:</p>
-          <p>{coinInfo?.open_source ? "Yes" : "No"}</p>
+          <p>{coinInfoData?.open_source ? "Yes" : "No"}</p>
         </div>
       </Card>
-      <Description>{coinInfo?.description}</Description>
+      <Description>{coinInfoData?.description}</Description>
       <Card>
         <div>
           <p>TOTAL SUPLY:</p>
-          <p>{coinPrice?.total_supply}</p>
+          <p>{coinPriceData?.total_supply}</p>
         </div>
         <div>
           <p>MAX SUPPLY:</p>
-          <p>{coinPrice?.max_supply}</p>
+          <p>{coinPriceData?.max_supply}</p>
         </div>
       </Card>
       <ChartContainer>
