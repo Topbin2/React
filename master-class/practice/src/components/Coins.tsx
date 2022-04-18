@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import Coin from "./Coin";
@@ -27,25 +27,26 @@ interface CoinsData {
 }
 
 const Coins = () => {
-  const [coins, setCoins] = useState<CoinsData[]>();
+  const fetchCoins = async () => {
+    const response = await fetch("https://api.coinpaprika.com/v1/coins");
+    const result = await response.json();
+    return result.slice(0, 50);
+  };
 
-  useEffect(() => {
-    const fetchCoins = async () => {
-      const response = await fetch("https://api.coinpaprika.com/v1/coins");
-      const result = await response.json();
-      setCoins(result.slice(0, 50));
-    };
-    fetchCoins();
-  }, []);
+  const { isLoading, data } = useQuery<CoinsData[]>("coins", fetchCoins);
 
   return (
     <Container>
       <h1>Coins</h1>
-      <ul>
-        {coins?.map((coin) => (
-          <Coin key={coin.id} id={coin.id} name={coin.name} />
-        ))}
-      </ul>
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <ul>
+          {data?.map((coin) => (
+            <Coin key={coin.id} id={coin.id} name={coin.name} />
+          ))}
+        </ul>
+      )}
     </Container>
   );
 };

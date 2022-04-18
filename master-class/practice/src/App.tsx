@@ -1,4 +1,5 @@
 import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Detail from "./pages/Detail";
@@ -69,19 +70,23 @@ a {
 }
 `;
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <React.Fragment>
-      <GlobalStyle />
-      
-      <Switch>
-        <Route path="/" exact >
-          <Main />
-        </Route >
-        <Route path="/:coinId" >
-          <Detail />
-        </Route >
-      </Switch>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+
+        <Switch>
+          <Route path="/" exact>
+            <Main />
+          </Route>
+          <Route path="/:coinId">
+            <Detail />
+          </Route>
+        </Switch>
+      </QueryClientProvider>
     </React.Fragment>
   );
 }
