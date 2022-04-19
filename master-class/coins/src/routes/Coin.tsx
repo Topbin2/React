@@ -6,7 +6,7 @@ import {
   Route,
   useRouteMatch,
 } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 
@@ -200,6 +200,11 @@ function Coin() {
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
+  const history = useHistory();
+
+  const goBackHome = () => {
+    history.push('/');
+  };
 
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
     ["info", coinId],
@@ -211,24 +216,6 @@ function Coin() {
     { refetchInterval: 5000 }
   );
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const responseInfo = await fetch(
-  //       `https://api.coinpaprika.com/v1/coins/${coinId}`
-  //     );
-  //     const infoData = await responseInfo.json();
-
-  //     const responsePrice = await fetch(
-  //       `https://api.coinpaprika.com/v1/tickers/${coinId}`
-  //     );
-  //     const priceData = await responsePrice.json();
-
-  //     setInfo(infoData);
-  //     setPriceInfo(priceData);
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, [coinId]);
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
@@ -242,6 +229,7 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+      <button onClick={goBackHome}>홈으로 가기</button>
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -283,7 +271,7 @@ function Coin() {
 
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price coinId={coinId}/>
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId} />
