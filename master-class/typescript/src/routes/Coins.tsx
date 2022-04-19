@@ -14,7 +14,10 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const CoinsList = styled.ul``;
+const CoinsList = styled.ul`
+  width: 50%;
+  margin: 0 auto;
+`;
 
 const Coin = styled.li`
   background-color: white;
@@ -85,15 +88,17 @@ function Coins() {
         <CoinsList>
           {data?.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={{
-                pathname: `/${coin.id}`,
-                state: { name: coin.name },
-              }}>
-                  <Img
-                    src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
-                    alt="coin-img"
-                  />
-                  {coin.name} &rarr;
+              <Link
+                to={{
+                  pathname: `/${coin.id}`,
+                  state: { name: coin.name },
+                }}
+              >
+                <Img
+                  src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
+                  alt="coin-img"
+                />
+                {coin.name} &rarr;
               </Link>
             </Coin>
           ))}

@@ -13,6 +13,8 @@ import Chart from "./Chart";
 import Price from "./Price";
 
 const Container = styled.div`
+  width: 50%;
+  margin: 0 auto;
   padding: 0px 20px;
 `;
 
@@ -270,7 +272,7 @@ function Coin() {
               <Price />
             </Route>
             <Route path={`/:coinId/chart`}>
-              <Chart />
+              <Chart coinId={coinId} />
             </Route>
           </Switch>
         </>
