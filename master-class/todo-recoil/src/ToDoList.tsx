@@ -35,9 +35,18 @@ const ToDoList = () => {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit(onValid)}
       >
-        <input {...register("Email", { required: true })} placeholder="Email" />
         <input
-          {...register("First ame", { required: true })}
+          {...register("Email", {
+            required: true,
+            pattern: {
+              value: /^[A-Za-z0-9._%+-]+@naver.com$/,
+              message: "Only naver.com emails allowed",
+            },
+          })}
+          placeholder="Email"
+        />
+        <input
+          {...register("First Name", { required: true })}
           placeholder="First Name"
         />
         <input
