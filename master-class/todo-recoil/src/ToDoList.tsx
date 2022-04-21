@@ -1,33 +1,24 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-// const ToDoList = () => {
-//   const [todo, setTodo] = useState('');
-//   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-//     const value = event.currentTarget.value;
-//     setTodo(value);
-//   };
-//   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     console.log(todo);
-//     setTodo('');
-//   };
-//   return (
-//     <div>
-//       <form onSubmit={onSubmit}>
-//         <input value={todo} onChange={onChange} type="text" placeholder="Write a to do" />
-//         <button>add</button>
-//       </form>
-//     </div>
-//   );
-// };
+interface IForm {
+  Email: string;
+  FirstName: string;
+  LastName: string;
+  UserName: string;
+  Password: string;
+  PasswordConfirm: string;
+}
 
 const ToDoList = () => {
-  const { register, handleSubmit, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
   const onValid = (data: any) => {
     console.log(data);
   };
-  console.log(formState.errors);
+  console.log(errors);
 
   return (
     <div>
@@ -37,7 +28,7 @@ const ToDoList = () => {
       >
         <input
           {...register("Email", {
-            required: true,
+            required: "Email is required",
             pattern: {
               value: /^[A-Za-z0-9._%+-]+@naver.com$/,
               message: "Only naver.com emails allowed",
@@ -45,22 +36,33 @@ const ToDoList = () => {
           })}
           placeholder="Email"
         />
+        <span>{errors?.Email?.message}</span>
         <input
-          {...register("First Name", { required: true })}
+          {...register("FirstName", { required: "First name is required" })}
           placeholder="First Name"
         />
+        <span>{errors?.FirstName?.message}</span>
         <input
-          {...register("LastName", { required: true })}
+          {...register("LastName", { required: "Last name is required" })}
           placeholder="Last Name"
         />
+        <span>{errors?.LastName?.message}</span>
         <input
-          {...register("UserName", { required: true, minLength: 10 })}
+          {...register("UserName", {
+            required: "User name is required",
+            minLength: 10,
+          })}
           placeholder="User Name"
         />
+        <span>{errors?.UserName?.message}</span>
         <input
-          {...register("Password", { required: true, minLength: 5 })}
+          {...register("Password", {
+            required: "Password is required",
+            minLength: 5,
+          })}
           placeholder="Password"
         />
+        <span>{errors?.Password?.message}</span>
         <input
           {...register("PasswordConfirm", {
             required: "Password is required",
@@ -68,6 +70,7 @@ const ToDoList = () => {
           })}
           placeholder="Password Confirm"
         />
+        <span>{errors?.PasswordConfirm?.message}</span>
         <button>add</button>
       </form>
     </div>
