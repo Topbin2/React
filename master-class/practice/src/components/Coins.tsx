@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import Coin from "./Coin";
+import { fetchCoins } from "../api";
 
 const Container = styled.div`
   margin-top: 2rem;
@@ -27,12 +28,6 @@ interface CoinsData {
 }
 
 const Coins = () => {
-  const fetchCoins = async () => {
-    const response = await fetch("https://api.coinpaprika.com/v1/coins");
-    const result = await response.json();
-    return result.slice(0, 50);
-  };
-
   const { isLoading, data } = useQuery<CoinsData[]>("coins", fetchCoins);
 
   return (

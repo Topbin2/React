@@ -1,24 +1,13 @@
-import { Switch, Route } from "react-router";
+import { useForm } from 'react-hook-form';
 
-import Coins from "./components/Coins";
-import Coin from "./components/Coin";
-import Main from "./Page/Main";
 
 function App() {
+  const { register, handleSubmit } = useForm();
+
+  console.log(register());
+
   return (
-    <>
-      <Switch>
-        <Route path="/" exact>
-          <Main />
-        </Route>
-        <Route path="/coins">
-          <Coins />
-        </Route>
-        <Route path="/:coinId">
-          <Coin />
-        </Route>
-      </Switch>
-    </>
+    <input type="text" />
   );
 }
 

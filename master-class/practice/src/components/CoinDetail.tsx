@@ -8,6 +8,8 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 import styled from "styled-components";
+
+import { fetchCoinInfo, fetchCoinPrice } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
 
@@ -109,29 +111,13 @@ const CoinDetail = () => {
   const chartMatch = useRouteMatch(`/${coinId}/chart`);
   const priceMatch = useRouteMatch(`/${coinId}/price`);
 
-  const fetchCoinInfo = async () => {
-    const response = await fetch(
-      `https://api.coinpaprika.com/v1/coins/${coinId}`
-    );
-    const result = await response.json();
-    return result;
-  };
-
-  const fetchCoinPrice = async () => {
-    const response = await fetch(
-      `https://api.coinpaprika.com/v1/tickers/${coinId}`
-    );
-    const result = await response.json();
-    return result;
-  };
-
   const { data: coinInfoData, isLoading: coinInfoIsLoading } = useQuery<IInfo>(
     ["coinInfo", coinId],
-    fetchCoinInfo
+    () => fetchCoinInfo(coinId)
   );
 
   const { data: coinPriceData, isLoading: coinPriceIsLoading } =
-    useQuery<IPrice>(["coinPrice", coinId], fetchCoinPrice);
+    useQuery<IPrice>(["coinPrice", coinId], () => fetchCoinPrice(coinId));
 
   if (coinInfoIsLoading || coinPriceIsLoading) {
     return <h1>Loading...</h1>;
