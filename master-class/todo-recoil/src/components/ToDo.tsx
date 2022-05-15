@@ -5,9 +5,11 @@ import { toDoState } from '../atoms';
 import { ITodo } from "../atoms";
 
 const ToDo = ({ text, category, id }: ITodo) => {
-  const setTodos = useSetRecoilState(toDoState);
+  const setToDos = useSetRecoilState(toDoState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget.name);
+
+    const { currentTarget: { name } } = event;
+
   };
 
   return <li>
