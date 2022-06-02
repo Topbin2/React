@@ -7,26 +7,38 @@ const IngredientForm = React.memo((props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    // ...
-    // props.onAddIngredient({ title: enteredTitle, amount: enteredAmount });
     const data = { title: enteredTitle, amount: enteredAmount };
-    fetch(
-      "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    )
-    .then(() => {
-      props.onAddIngredient(data)
-      setEnteredTitle(() => '');
-      setEnteredAmount(() => '');
-    })    
+
+    // fetch(
+    //   "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //   }
+    // ).then(() => {
+    //   props.onAddIngredient(data);
+    //   setEnteredTitle(() => "");
+    //   setEnteredAmount(() => "");
+    // });
+
+    // await fetch(
+    //   "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //   }
+    // );
+    props.onAddIngredient(data);
+    setEnteredTitle(() => "");
+    setEnteredAmount(() => "");
   };
 
   return (
