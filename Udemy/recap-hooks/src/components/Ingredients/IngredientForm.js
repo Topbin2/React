@@ -10,7 +10,23 @@ const IngredientForm = React.memo((props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     // ...
-    props.onAddIngredient({ title: enteredTitle, amount: enteredAmount });
+    // props.onAddIngredient({ title: enteredTitle, amount: enteredAmount });
+    const data = { title: enteredTitle, amount: enteredAmount };
+    fetch(
+      "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    )
+    .then(() => {
+      props.onAddIngredient(data)
+      setEnteredTitle(() => '');
+      setEnteredAmount(() => '');
+    })    
   };
 
   return (
