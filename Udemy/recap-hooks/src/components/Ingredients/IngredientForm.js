@@ -7,35 +7,9 @@ const IngredientForm = React.memo((props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
 
-  const submitHandler = async (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
     const data = { title: enteredTitle, amount: enteredAmount };
-
-    // fetch(
-    //   "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify(data),
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   }
-    // ).then(() => {
-    //   props.onAddIngredient(data);
-    //   setEnteredTitle(() => "");
-    //   setEnteredAmount(() => "");
-    // });
-
-    // await fetch(
-    //   "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify(data),
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   }
-    // );
     props.onAddIngredient(data);
     setEnteredTitle(() => "");
     setEnteredAmount(() => "");
