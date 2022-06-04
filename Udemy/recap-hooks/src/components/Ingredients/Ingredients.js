@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -7,14 +7,30 @@ import Search from "./Search";
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
 
-  const removeIngredientHandler = () => {};
+  // useEffect(() => {
+  //   fetch(
+  //     "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       const loadedIngredients = [];
+  //       for (const key in responseData) {
+  //         loadedIngredients.push({
+  //           id: key,
+  //           title: responseData[key].title,
+  //           amount: responseData[key].amount,
+  //         });
+  //       }
+  //       setUserIngredients(loadedIngredients);
+  //     });
+  // }, []);
 
-  const filteredIngredientsHandler = (filteredIngredients) => {
+  const filteredIngredientsHandler = useCallback((filteredIngredients) => {
     setUserIngredients(filteredIngredients);
-  };
+  }, []);
 
   const addIngredientHandler = async (ingredient) => {
-    const response = await fetch(
+    fetch(
       "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json",
       {
         method: "POST",
@@ -23,31 +39,21 @@ const Ingredients = () => {
           "Content-type": "applications/json",
         },
       }
-    );
-    const data = await response.json();
-    setUserIngredients((prev) => [...prev, { id: data.name, ...ingredient }]);
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
+        setUserIngredients((prevIngredients) => [
+          ...prevIngredients,
+          { id: responseData.name, ...ingredient },
+        ]);
+      });
   };
 
-  useEffect(() => {
-    fetch(
-      "https://react-http-9f6b5-default-rtdb.firebaseio.com/ingredients.json"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const ingredients = [];
-        for (let key in data) {
-          const ingredient = {
-            id: key,
-            ...data[key],
-          };
-          ingredients.push(ingredient);
-        }
-        return ingredients;
-      })
-      .then((result) =>
-        setUserIngredients((prevIngredients) => [...prevIngredients, ...result])
-      );
-  }, []);
+  const removeIngredientHandler = (ingredientId) => {
+    setUserIngredients((prevIngredients) =>
+      prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
+    );
+  };
 
   return (
     <div className="App">
