@@ -210,6 +210,7 @@ function Coin() {
     ["info", coinId],
     () => fetchCoinInfo(coinId)
   );
+  
   const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
     ["tickers", coinId],
     () => fetchCoinTickers(coinId),
