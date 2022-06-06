@@ -1,12 +1,11 @@
 import React, { useState, createContext } from "react";
 
-const AuthContext = () =>
-  createContext({
-    isAuth: false,
-    login: () => {},
-  });
+export const AuthContext = createContext({
+  isAuth: false,
+  login: () => {},
+});
 
-export const AuthContextProvider = (props) => {
+const AuthContextProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const loginHandler = () => {
@@ -22,4 +21,4 @@ export const AuthContextProvider = (props) => {
   );
 };
 
-export default AuthContext;
+export default AuthContextProvider;
