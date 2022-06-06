@@ -1,11 +1,22 @@
-import { useReducer } from "react";
+import { useReducer, useCallback } from "react";
 
 const httpReducer = (curHttpState, action) => {
   switch (action.type) {
     case "SEND":
-      return { loading: true, error: null, data: null };
+      return {
+        loading: true,
+        error: null,
+        data: null,
+        extra: null,
+        identifier: action.identifier,
+      };
     case "RESPONSE":
-      return { ...curHttpState, loading: false, data: action.responseData };
+      return {
+        ...curHttpState,
+        loading: false,
+        data: action.responseData,
+        extra: action.extra,
+      };
     case "ERROR":
       return { loading: false, error: action.errorMessage };
     case "CLEAR":
@@ -20,30 +31,42 @@ const useHttp = () => {
     loading: false,
     error: null,
     data: null,
+    extra: null,
+    identifier: null,
   });
 
-  const sendRequest = (url, method, body) => {
-    dispatchHttp({ type: "SEND" });
-    fetch(url, {
-      method: method,
-      body: body,
-      header: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        dispatchHttp({ type: "RESPONSE", responseData: responseData });
+  const sendRequest = useCallback(
+    (url, method, body, reqExtra, reqIdentifier) => {
+      dispatchHttp({ type: "SEND", identifier: reqIdentifier });
+      fetch(url, {
+        method: method,
+        body: body,
+        header: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch(() => {
-        dispatchHttp({ type: "ERROR", errorMessage: "에러가 났어요 !!" });
-      });
-  };
+        .then((response) => response.json())
+        .then((responseData) => {
+          dispatchHttp({
+            type: "RESPONSE",
+            responseData: responseData,
+            extra: reqExtra,
+          });
+        })
+        .catch(() => {
+          dispatchHttp({ type: "ERROR", errorMessage: "에러가 났어요 !!" });
+        });
+    },
+    []
+  );
 
   return {
     isLoading: httpState.loading,
     data: httpState.data,
     error: httpState.error,
+    sendRequest: sendRequest,
+    reqExtra: httpState.extra,
+    reqIdentifier: httpState.identifier,
   };
 };
 
