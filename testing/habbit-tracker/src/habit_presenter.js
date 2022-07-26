@@ -27,4 +27,24 @@ export default class HabitPresenter {
     });
     update(this.habits);
   }
+
+  delete(habit, update) {
+    this.habits = this.habits.filter((item) => item.id !== habit.id);
+    update(this.habits);
+  }
+
+  add(name, update) {
+    this.habits = [...this.habits, { id: Date.now(), name, count: 0 }];
+    update(this.habits);
+  }
+
+  reset(update) {
+    this.habits = this.habits.map((habit) => {
+      if (habit.count !== 0) {
+        return { ...habit, count: 0 };
+      }
+      return habit;
+    });
+    return update(this.habits);
+  }
 }

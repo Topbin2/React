@@ -29,20 +29,16 @@ const App = ({ presenter }) => {
     [presenter]
   );
 
-  const handleAdd = useCallback((name) => {
-    setHabits((habits) => [...habits, { id: Date.now(), name, count: 0 }]);
-  }, []);
+  const handleAdd = useCallback(
+    (name) => {
+      presenter.add(name, setHabits);
+    },
+    [presenter]
+  );
 
   const handleReset = useCallback(() => {
-    setHabits((habits) =>
-      habits.map((habit) => {
-        if (habit.count !== 0) {
-          return { ...habit, count: 0 };
-        }
-        return habit;
-      })
-    );
-  }, []);
+    presenter.reset(setHabits);
+  }, [presenter]);
 
   return (
     <>
