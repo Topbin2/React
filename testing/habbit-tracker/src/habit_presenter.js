@@ -1,0 +1,30 @@
+export default class HabitPresenter {
+  constructor(habits) {
+    this.habits = habits;
+  }
+
+  getHabits() {
+    return this.habits;
+  }
+
+  increment(habit, update) {
+    this.habits = this.habits.map((item) => {
+      if (item.id === habit.id) {
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
+    update(this.habits);
+  }
+
+  decrement(habit, update) {
+    this.habits = this.habits.map((item) => {
+      if (item.id === habit.id) {
+        const count = habit.count - 1;
+        return { ...habit, count: count < 0 ? 0 : count };
+      }
+      return item;
+    });
+    update(this.habits);
+  }
+}
