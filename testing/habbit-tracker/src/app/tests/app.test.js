@@ -39,4 +39,25 @@ describe("app", () => {
     const addedCount = screen.getAllByTestId("habit-count")[3];
     expect(addedCount.innerHTML).toBe("0");
   });
+
+  it("delete 버튼을 누르면 habit이 삭제됩니다.", () => {
+    const button = screen.getAllByTitle("delete")[0];
+    fireEvent.click(button);
+    expect(screen.getAllByTestId("habit-name")[0].innerHTML).toBe("Listening");
+  });
+
+  it("+ 버튼을 누르면 해당 habit의 count가 1 증가합니다.", () => {
+    const button = screen.getAllByTitle("increase")[0];
+    fireEvent.click(button);
+    const count = screen.getAllByTestId("habit-count")[0];
+    expect(count.innerHTML).toBe("1");
+  });
+
+  it("reset 버튼을 누르면 모든 habit의 count가 0으로 초기화 됩니다.", () => {
+    const button = screen.getByText("Reset All");
+    fireEvent.click(button);
+    screen.getAllByTestId("habit-count").forEach((count) => {
+      expect(count.innerHTML).toBe("0");
+    });
+  });
 });
