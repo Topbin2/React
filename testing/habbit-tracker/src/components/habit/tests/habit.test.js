@@ -47,5 +47,11 @@ describe("Habit", () => {
       expect(onDecrement).toHaveBeenCalledTimes(1);
       expect(onDecrement).toHaveBeenCalledWith(habit);
     });
+
+    it("DELETE 버튼을 클릭하면 onDelete(habit) 함수가 실행되어야 합니다.", () => {
+      fireEvent.click(screen.getByTitle("delete"));
+      expect(onDelete).toHaveBeenCalledTimes(1);
+      expect(onDelete).toHaveBeenCalledWith(habit);
+    });
   });
 });

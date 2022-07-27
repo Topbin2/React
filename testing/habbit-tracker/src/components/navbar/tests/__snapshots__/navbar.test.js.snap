@@ -12,6 +12,7 @@ exports[`navbar snapshot test 1`] = `
   </span>
   <span
     className="navbar-count"
+    data-testid="total-count"
     title="count"
   >
     0
